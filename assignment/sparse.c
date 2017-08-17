@@ -1,6 +1,62 @@
 #include <stdio.h>
 
 
+// void addMatrix(int **, int **);
+
+void addMatrix(int (*m1)[6], int (*m2)[6],int noofval){
+
+	int i,j,k = 0;
+	int m[3][noofval];
+	for (i = 0; i < 3; ++i)
+	{
+		for (j = 0; j < noofval; ++j)
+		{
+			m[i][j] = 0;
+		}
+	}
+	
+
+	for (i = 0; i < noofval; ++i)
+	{
+		for (j = 0; j < noofval; ++j)
+		{
+			if (m1[0][i] == m2[0][j] && m1[1][i] == m2[1][j])			
+			{
+				m[0][i] = m1[0][i];
+				m[1][i] = m1[1][i];
+				m[2][i] = m1[2][i] + m2[2][j];
+				break;
+			}
+			else{
+				m[0][i] = m1[0][i];
+				m[1][i] = m1[1][i];
+				m[2][i] = m1[2][i];
+			}
+		}
+	}
+	int newcol = noofval + noofval - 2;
+	int mat[3][newcol];
+	for (i = 0; i < 3; ++i)
+	{
+		for (j = 0; j < newcol; ++j)
+		{
+			mat[i][j] = m[i][j];
+		}
+	}
+
+
+	// print added sparse matrix
+	printf("Added matrix: \n");
+	for (i = 0; i < 3; ++i)
+	{
+		for (j = 0; j < noofval; ++j)
+		{
+			printf("%d ", m[i][j]);
+		}
+		printf("\n");
+	}
+}
+
 int main(int argc, char const *argv[])
 {
 	int i,j,count = 0,count_two = 0,k = 0;
@@ -19,7 +75,7 @@ int main(int argc, char const *argv[])
 		{1 , 0 , 2 , 0 , 0 },
         {0 , 6 , 0 , 0 , 5 },
         {0 , 0 , 7 , 0 , 0 },
-        {3 , 0 , 8 , 0 , 0 }
+        {0 , 0 , 8 , 0 , 0 }
 	};
 
 	// count no of non-zero entries
@@ -96,6 +152,11 @@ int main(int argc, char const *argv[])
         }
         printf("\n");
     }
+    printf("\n");
+
+    // Add two sparse matrix
+    addMatrix(compact,compact_two,count);
 
 	return 0;
 }
+
