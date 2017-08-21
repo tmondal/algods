@@ -1,10 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
+// simple queue
 struct Queue {
 
-	
+	int front,rear,capacity;
+	int *arr;
 };
 
 struct ListNode
@@ -23,6 +24,42 @@ struct Graph
 	int vertices;
 	struct AdjList *array;
 };
+
+struct Queue *createQueue(int capacity){
+
+	struct Queue *queue = (struct Queue *)malloc(sizeof(struct Queue));
+	queue->front = -1;
+	queue->rear = 0;
+	queue->capacity = capacity;
+	queue->arr = (int *)malloc(capacity*sizeof(int));
+	return queue;
+}
+
+int isFull(struct Queue *queue){
+	return queue->rear == (capacity - 1) ? 1 : 0;
+}
+
+int isEmpty(struct Queue *queue){
+	
+}
+
+void push(struct Queue *queue,int data){
+	if (!isFull(queue))
+	{
+		queue->arr[++queue->rear] = data;
+	}else{
+		printf("Queue full\n"); 
+	}
+}
+int pop(struct Queue *queue){
+	if (!isEmpty(queue))
+	{
+		return queue->arr[queue->front++];
+	}else{
+		printf("Empty queue\n");
+		return 1000;
+	}
+}
 
 struct Graph *createGraph(int vertices){
 
