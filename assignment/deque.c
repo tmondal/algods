@@ -18,6 +18,7 @@ void enqueueFront(struct Deque **deque,int data){
 
 	struct Node *newnode = (struct Node *)malloc(sizeof(struct Node));
 	newnode->data = data;
+	newnode->prev = NULL;
 	if ((*deque)->front == NULL)
 	{
 		newnode->next = newnode->prev = NULL;
@@ -25,7 +26,6 @@ void enqueueFront(struct Deque **deque,int data){
 		return;
 	}
 	newnode->next = (*deque)->front;
-	newnode->prev = NULL;
 	(*deque)->front->prev = newnode;
 	(*deque)->front = newnode;
 }
@@ -40,6 +40,7 @@ int dequeFront(struct Deque **deque){
 		{
 			(*deque)->rear = NULL;
 		}
+
 		free(temp);
 		return data;
 	}else{
@@ -52,6 +53,7 @@ int dequeFront(struct Deque **deque){
 void enqueueRear(struct Deque **deque, int data){
 	struct Node *newnode = (struct Node *)malloc(sizeof(struct Node));
 	newnode->data = data;
+	newnode->next = NULL;
 	if ((*deque)->rear == NULL)
 	{
 		newnode->prev = newnode->next = NULL;
@@ -108,7 +110,7 @@ int main(int argc, char const *argv[])
 	enqueueRear(&deque,2);
 	//enqueueRear(&deque,7);
 	show(&deque);
-	// printf("Deque from rear: %d\n", dequeRear(&deque));
-	// show(&deque);
+	printf("Deque from rear: %d\n", dequeRear(&deque));
+	show(&deque);
 	return 0;
 }
