@@ -15,6 +15,10 @@ void insertbegin(struct doublyll **head,int data){
 	newnode->data = data;
 	newnode->next = (*head);
 	newnode->prev = NULL;
+	if ((*head) != NULL)
+	{
+		(*head)->prev = newnode;
+	}
 	*head = newnode;
 }
 
@@ -22,24 +26,21 @@ void insertend(struct doublyll **head, int data){
 
 	struct doublyll *newnode = (struct doublyll *)malloc(sizeof(struct doublyll));
 	newnode->data = data;
+	newnode->next = NULL;
 	struct doublyll *temp = *head;
 
 	if (*head == NULL)
 	{
-		*head = newnode;
-		newnode->next = NULL;
 		newnode->prev = NULL;
+		*head = newnode;
 	}else{
 
 		while(temp->next != NULL){
 			temp = temp->next;
 		}
 		temp->next = newnode;
-		newnode->next = NULL;
 		newnode->prev = temp;
 	}
-
-
 }
 
 
@@ -78,6 +79,27 @@ void insertafter(struct doublyll **head,int existval, int newdata){
 	}
 }
 
+void deleteNode(struct doublyll **head, struct doublyll *node){
+
+	if ((*head) == NULL || node == NULL)
+	{
+		return;	
+	}
+	if ((*head) == node)
+	{
+		(*head) = (*head)->next; // for this double pointer needed
+	}
+	if (node->prev != NULL)
+	{
+		node->prev->next = node->next;
+	}
+	if (node->next != NULL)
+	{
+		node->next->prev = node->prev;
+	}
+	free(node);
+}
+
 int main(int argc, char const *argv[])
 {
 	
@@ -92,6 +114,9 @@ int main(int argc, char const *argv[])
 	insertend(&head,3);
 
 	insertafter(&head,5,1);
+	showll(head);
+
+	deleteNode(&head,head->next);
 	showll(head);
 	return 0;
 }

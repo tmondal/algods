@@ -39,7 +39,7 @@ void push(struct Stack *stack,int data){
 		printf("Array extended!\n");
 	}
 	stack->array[++(stack->top)] = data;
-	stack->currentsize += 1;
+	stack->currentsize ++;
 }
 
 int pop(struct Stack *stack){
@@ -48,6 +48,7 @@ int pop(struct Stack *stack){
 		printf("Stack underflow!\n");
 		return -1;
 	}else{
+		stack->currentsize --;
 		return stack->array[(stack->top)--];
 	}
 }
