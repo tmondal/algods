@@ -187,7 +187,7 @@ void dequeue(Tree *tree, char *path){
 		}
 		i++;
 	}
-	// enqueue
+	// dequeue
 	LL **front = &(temp->queue->front);
 	LL **rear = &(temp->queue->rear);
 	if (temp->queue->front == NULL)
