@@ -200,23 +200,33 @@ Tree *joinBst(Tree **t1 , Tree **t2){
 		return NULL;
 	}
 	if ((*t1) == NULL && (*t2) != NULL){
-		joint = (*t2);
-		return joint;
+		return *t2;
 	}
 	if ((*t2) == NULL && (*t1) != NULL){
-		joint = (*t1);
-		return joint;
+		return *t1;
 	}
-	Tree *temp = *t1;
+	Tree *temp = *t1, *prev;
 	while(temp->right != NULL){
+		prev = temp;
 		temp = temp->right;
 	}
 	joint->data = temp->data;
 	joint->left = *t1;
 	joint->right = (*t2);
+
+	if (prev){
+		prev->right = NULL;
+	}
 	free(temp);
 
 	return joint;
+}
+
+void split(Tree *tree){
+
+	Tree *t1 = NULL,*t2 = NULL;
+	
+
 }
 
 int main(int argc, char const *argv[])
@@ -255,5 +265,6 @@ int main(int argc, char const *argv[])
 	Tree *joint = NULL;
 	joint = joinBst(&tree_two, &tree_one);
 	inordertraversal(joint);
+	split(joint);
 	return 0;
 }
