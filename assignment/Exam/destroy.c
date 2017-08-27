@@ -62,8 +62,6 @@ void *insert(Tree **tree){
 		(*tree)->right = newnode;
 		return tree; // unchanged root
 	}
-	
-	// Wrong logic
 
 	// if tree has many nodes then call recursively
 	if((*tree)->left != NULL){
@@ -123,15 +121,15 @@ void traversal(Tree *tree){
 void destroy(Tree *tree,char *str){
 	
 	// when "LMR" null 
-	// if(strlen(str) == 0){
-	// 	if(tree != NULL){
-	// 		free(tree->queue);
-	// 		free(tree);
-	// 	}
-	// }
+	if(strlen(str) == 0){
+	 	if(tree != NULL){
+			free(tree->queue);
+	 		free(tree);
+	 	}
+	}
 
 	// modified
-	if(strlen(str) == 0){
+	/*if(strlen(str) == 0){
 		// base case
 		if(tree == NULL){
 			return;
@@ -144,13 +142,12 @@ void destroy(Tree *tree,char *str){
 			destroy(tree->mid,"");
 		}
 
-		free(tree->queue);
-		free(tree);
-
 		if(tree->right != NULL){
 			destroy(tree->right,"");
 		}
-	}
+		free(tree->queue);
+		free(tree);
+	}*/
 }
 
 int main(){
