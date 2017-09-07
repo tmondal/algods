@@ -191,30 +191,80 @@ void Lca(Tree *root, int key1, int key2){
 	}
 }
 
+Tree *joinBst(Tree **t1 , Tree **t2){
+
+	Tree *joint = (Tree *)malloc(sizeof(Tree));
+	joint->left = joint->right = NULL;
+
+	if ((*t1) == NULL && (*t2) == NULL){
+		return NULL;
+	}
+	if ((*t1) == NULL && (*t2) != NULL){
+		return *t2;
+	}
+	if ((*t2) == NULL && (*t1) != NULL){
+		return *t1;
+	}
+	Tree *temp = *t1, *prev;
+	while(temp->right != NULL){
+		prev = temp;
+		temp = temp->right;
+	}
+	joint->data = temp->data;
+	joint->left = *t1;
+	joint->right = (*t2);
+
+	if (prev){
+		prev->right = NULL;
+	}
+	free(temp);
+
+	return joint;
+}
+
+void split(Tree *tree){
+
+	Tree *t1 = NULL,*t2 = NULL;
+	
+
+}
+
 int main(int argc, char const *argv[])
 {
-	Tree *tree = NULL, *succ = NULL,*pre = NULL;
-	tree = insertNode(tree,50);
-	insertNode(tree,40);
-	insertNode(tree,60);
-	insertNode(tree,30);
-	insertNode(tree,45);
-	insertNode(tree,25);
-	insertNode(tree,55);
-	insertNode(tree,70);
+	Tree *tree_one = NULL, *succ = NULL,*pre = NULL;
+	Tree *tree_two = NULL;
+	tree_one = insertNode(tree_one,50);
+	insertNode(tree_one,40);
+	insertNode(tree_one,60);
+	insertNode(tree_one,30);
+	insertNode(tree_one,45);
+	insertNode(tree_one,25);
+	insertNode(tree_one,55);
+	insertNode(tree_one,70);
 
-	inordertraversal(tree);
+	tree_two = insertNode(tree_two,5);
+	insertNode(tree_two,4);
+	insertNode(tree_two,6);
+	insertNode(tree_two,3);
+	insertNode(tree_two,2);
+	insertNode(tree_two,7);
+
+	// inordertraversal(tree_two);
 	// search(tree,20);
 
 	// inorderpredecessor(tree,pre,55);
-	inordersuccesor(tree,succ,45);
+	// inordersuccesor(tree,succ,45);
 
-	deleteNode(tree,50);
-	deleteNode(tree,30);
-	inordertraversal(tree);
-	if(isBst(tree,-1,100)){
-		printf("Bst\n");
-	}
-	Lca(tree,25,45);
+	// deleteNode(tree,50);
+	// deleteNode(tree,30);
+	// inordertraversal(tree);
+	// if(isBst(tree,-1,100)){
+	// 	printf("Bst\n");
+	// }
+	// Lca(tree,25,45);
+	Tree *joint = NULL;
+	joint = joinBst(&tree_two, &tree_one);
+	inordertraversal(joint);
+	split(joint);
 	return 0;
 }
